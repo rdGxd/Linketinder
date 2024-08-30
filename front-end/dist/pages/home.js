@@ -1,7 +1,7 @@
-export function renderHome(container: HTMLElement | null) {
-  if (!container) return;
-
-  container.innerHTML = `
+export function renderHome(container) {
+    if (!container)
+        return;
+    container.innerHTML = `
         <h1>Bem-vindo ao Linketinder</h1>
         <p>Escolha uma opção para prosseguir:</p>
         <ul>

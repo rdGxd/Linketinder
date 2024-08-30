@@ -3,7 +3,13 @@
 
 ## Projeto de um sistema de linketinder
 
-### Tecnologias utilizadas:
+### Tecnologias utilizadas no back-end:
 - Groovy
 - Grails
 - Java
+
+### Tecnologias utilizadas no front-end:
+- TypeScript
+- HTML
+- CSS
+
