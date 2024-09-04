@@ -2,7 +2,6 @@ package org.example.services
 
 import org.example.model.Empresa
 
-
 class EmpresaService {
     HashSet<Empresa> empresas = [
             new Empresa("Arroz-Gostoso", "contato@arroz-gostoso.com.br", "12.345.678/0001-95", "Brasil", "SP", "01100-000", "Empresa de alimentos", ["Python", "Java"]),
@@ -16,7 +15,7 @@ class EmpresaService {
         empresas.add(user)
     }
 
-    HashSet<Empresa> showAll() {
+    void showAll() {
         empresas.each {c -> println(c)}
     }
 }
