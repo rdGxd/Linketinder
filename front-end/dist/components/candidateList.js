@@ -13,5 +13,6 @@ export function renderCandidateList(container) {
     `;
         ul.appendChild(li);
     });
-    container.appendChild(ul);
+    candidateListDiv.appendChild(ul);
+    container.appendChild(candidateListDiv);
 }

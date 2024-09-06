@@ -15,5 +15,6 @@ export function renderCandidateList(container: HTMLElement | null) {
     ul.appendChild(li);
   });
 
-  container.appendChild(ul);
+  candidateListDiv.appendChild(ul);
+  container.appendChild(candidateListDiv);
 }

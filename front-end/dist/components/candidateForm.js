@@ -1,3 +1,4 @@
+import { cpf, email, linkedin, nome, telefone, regex, } from "../utils/regex.js";
 export function renderCandidateForm(container) {
     if (!container)
         return;
@@ -40,6 +41,26 @@ export function renderCandidateForm(container) {
         const formData = new FormData(form);
         const candidate = Object.fromEntries(formData.entries());
         const candidates = JSON.parse(localStorage.getItem("candidatos") || "[]");
+        if (!regex(nome, formData.get("name"))) {
+            alert("Nome inválido");
+            return;
+        }
+        if (!regex(email, formData.get("email"))) {
+            alert("Email inválido");
+            return;
+        }
+        if (!regex(cpf, formData.get("cpf"))) {
+            alert("CPF inválido");
+            return;
+        }
+        if (!regex(telefone, formData.get("telefone"))) {
+            alert("Telefone inválido");
+            return;
+        }
+        if (!regex(linkedin, formData.get("linkedin"))) {
+            alert("Linkedin inválido");
+            return;
+        }
         // Adicionar o novo candidato à lista de candidatos
         candidates.push(candidate);
         // Atualizar o localStorage com a lista de candidatos

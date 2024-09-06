@@ -1,3 +1,5 @@
+import { cep, cnpj, email, nome, regex } from "../utils/regex.js";
+
 export function renderCompanyForm(container: HTMLElement | null) {
   if (!container) return;
 
@@ -52,14 +54,25 @@ export function renderCompanyForm(container: HTMLElement | null) {
     const empresas = JSON.parse(localStorage.getItem("empresas") || "[]");
 
     empresas.push(empresa);
+    if (!regex(nome, formData.get("companyName") as string)) {
+      alert("Nome da empresa inválido");
+      return;
+    }
+    if (!regex(cnpj, formData.get("cnpj") as string)) {
+      alert("CNPJ inválido");
+      return;
+    }
+    if (!regex(email, formData.get("email") as string)) {
+      alert("Email inválido");
+      return;
+    }
+    if (!regex(cep, formData.get("cep") as string)) {
+      alert("CEP inválido");
+      return;
+    }
 
     localStorage.setItem("empresas", JSON.stringify(empresas));
 
     console.log("Empresa salva:", empresa);
   });
-
-  const verifyTelefone = (telefone: string) => {
-    const telefoneRegex = /^\(?\d{2}\)?\s?9?\d{4}\-?\d{4}$/;
-    return telefoneRegex.test(telefone);
-  };
 }
