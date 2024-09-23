@@ -14,8 +14,12 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.spockframework:spock-core:2.3-groovy-4.0'
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.4'
+
 }
 
 test {
     useJUnitPlatform()
 }
+
