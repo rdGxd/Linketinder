@@ -1,7 +1,6 @@
 package services
 
 import org.example.model.Empresa
-import org.example.services.EmpresaService
 
 import spock.lang.Specification
 

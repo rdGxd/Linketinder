@@ -1,20 +1,37 @@
 package org.example.model
 
-import org.example.repository.Pessoa
-
-
-class Empresa extends Pessoa {
+class Empresa {
+    String nomeEmpresa
     String cnpj
+    String emailCorporativo
+    String descricaoEmpresa
     String pais
+    String cep
+    String senha
+    String id
 
-    Empresa(String nome, String email, String cnpj, String pais, String estado, String cep, String descricao, List<String> competencias) {
-        super(nome, email, estado, cep, descricao, competencias)
+    Empresa(String nomeEmpresa, String cnpj, String emailCorporativo, String descricaoEmpresa, String pais, String cep, String senha) {
+        this.nomeEmpresa = nomeEmpresa
         this.cnpj = cnpj
+        this.emailCorporativo = emailCorporativo
+        this.descricaoEmpresa = descricaoEmpresa
         this.pais = pais
+        this.cep = cep
+        this.senha = senha
     }
 
-    @Override
+    Empresa(Map params) {
+        this.id = params.id ?: 0
+        this.nomeEmpresa = params.nome
+        this.cnpj = params.cnpj
+        this.emailCorporativo = params.emailCorporativo
+        this.descricaoEmpresa = params.descricaoEmpresa
+        this.pais = params.pais
+        this.cep = params.cep
+        this.senha = params.senha
+    }
+
     String toString() {
-        return "${super.toString()}, CNPJ: ${cnpj}, País: ${pais}, Competências: ${competencias.join(', ')}"
+        return "Empresa( id: $id, nomeEmpresa: $nomeEmpresa, cnpj: $cnpj, emailCorporativo: $emailCorporativo, descricaoEmpresa: $descricaoEmpresa, pais: $pais, cep: $cep, senha: $senha)"
     }
 }
