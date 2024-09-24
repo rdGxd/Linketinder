@@ -1,7 +1,7 @@
 package services
 
 import org.example.model.Candidato
-import org.example.services.CandidatoService
+
 import spock.lang.Specification
 
 class CandidatoServiceTest extends Specification {

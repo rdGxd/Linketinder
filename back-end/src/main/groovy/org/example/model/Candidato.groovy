@@ -1,19 +1,45 @@
 package org.example.model
 
-import org.example.repository.Pessoa
 
-class Candidato extends Pessoa {
+class Candidato {
+    String nome
+    String sobrenome
+    String dataNascimento
+    String email
     String cpf
-    int idade
+    String pais
+    String cep
+    String descricaoPessoal
+    String senha
+    String id
 
-    Candidato(String nome, String email, String cpf, int idade, String estado, String cep, String descricao, List<String> competencias) {
-        super(nome, email, estado, cep, descricao, competencias)
+    Candidato(String nome, String sobrenome, String dataNascimento, String email, String cpf, String pais, String cep, String descricaoPessoal, String senha) {
+        this.nome = nome
+        this.sobrenome = sobrenome
+        this.dataNascimento = dataNascimento
+        this.email = email
         this.cpf = cpf
-        this.idade = idade
+        this.pais = pais
+        this.cep = cep
+        this.descricaoPessoal = descricaoPessoal
+        this.senha = senha
     }
 
-    @Override
+
+    Candidato(Map params) {
+        this.id = params.id ?: 0
+        this.nome = params.nome
+        this.sobrenome = params.sobrenome
+        this.dataNascimento = params.dataNascimento
+        this.email = params.email
+        this.cpf = params.cpf
+        this.pais = params.pais
+        this.cep = params.cep
+        this.descricaoPessoal = params.descricaoPessoal
+        this.senha = params.senha
+    }
+
     String toString() {
-        return "${super.toString()}, CPF: ${cpf}, Idade: ${idade}, Competências: ${competencias.join(', ')}"
+        return "Candidato(id: $id, nome: $nome, sobrenome: $sobrenome, dataNascimento: $dataNascimento, email: $email, cpf: $cpf, pais: $pais, cep: $cep, descricaoPessoal: $descricaoPessoal, senha: $senha)"
     }
 }
