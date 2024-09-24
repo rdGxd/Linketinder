@@ -8,10 +8,13 @@
 - Grails
 - Java
 - DBDiagram.io
+- PostgreSQL
+- Docker
+
+![Modelagem](./back-end/src/main/resources/dbdiagram.png)
 
 ### Tecnologias utilizadas no front-end:
 - TypeScript
 - HTML
 - CSS
 
-![Modelagem](./back-end/resources/dbdiagram.png)
