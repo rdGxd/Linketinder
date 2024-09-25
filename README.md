@@ -9,7 +9,6 @@
 - Java
 - DBDiagram.io
 - PostgreSQL
-- Docker
 
 ![Modelagem](./back-end/src/main/resources/dbdiagram.png)
 

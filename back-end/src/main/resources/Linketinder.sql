@@ -47,6 +47,13 @@ CREATE TABLE candidatos_vagas (
     PRIMARY KEY (id_candidato, id_vaga)
 );
 
+CREATE TABLE vagas_competencias (
+                                    id_vaga INT REFERENCES vagas(id) ON DELETE CASCADE,
+                                    id_competencia INT REFERENCES competencias(id) ON DELETE CASCADE,
+                                    PRIMARY KEY (id_vaga, id_competencia)
+);
+
+
 INSERT INTO candidatos (nome, sobrenome, data_nascimento, email, cpf, pais, cep, descricao_pessoal, senha)
 VALUES ('Sandubinha', 'Exemplo', '1990-01-01', 'sandubinha@example.com', '12345678901', 'Brasil', '12345678', 'Desenvolvedor full stack', 'senha123');
 
@@ -62,6 +69,9 @@ VALUES (1, 'Desenvolvedor Backend', 'Desenvolvimento de APIs', 'São Paulo');
 INSERT INTO candidatos_vagas (id_candidato, id_vaga)
 VALUES (1, 1);
 
+INSERT INTO vagas_competencias (id_vaga, id_competencia)
+VALUES (1, 1), (1, 2);
+
 -- Exibir Candidatos com Competências
 SELECT c.nome, c.sobrenome, comp.nome_competencia
 FROM candidatos c
@@ -74,3 +84,9 @@ FROM candidatos c
 JOIN candidatos_vagas cv ON c.id = cv.id_candidato
 JOIN vagas v ON cv.id_vaga = v.id;
 
+
+-- Exibir Vagas com Competências
+SELECT v.nome_vaga, comp.nome_competencia
+FROM vagas v
+         JOIN vagas_competencias vc ON v.id = vc.id_vaga
+         JOIN competencias comp ON vc.id_competencia = comp.id;
