@@ -17,6 +17,15 @@ document.addEventListener("DOMContentLoaded", () => {
       {
         name: "teste23232323",
         email: "teste1@232323232323233",
+        skills: "Java",
+        cpf: "0aaaaaaaaaaaaaaaaa",
+        telefone: "aaaaaaaaaaaaaaaa",
+        linkedin: "aaaaaaaaaaaaaaa",
+        education: "aaaaaaaaaaaaaaa",
+      },
+      {
+        name: "teste23232323",
+        email: "teste1@232323232323233",
         skills: "JA FUI E VOLTEI",
         cpf: "0aaaaaaaaaaaaaaaaa",
         telefone: "aaaaaaaaaaaaaaaa",
