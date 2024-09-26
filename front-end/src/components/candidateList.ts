@@ -23,9 +23,9 @@ export function renderCandidateList(container: HTMLElement | null) {
   // Contar a quantidade de candidatos por competência
   const skillCounts: { [key: string]: number } = {};
   candidates.forEach((candidate: any) => {
-    const skills = candidate.skills.toLowerCase().split(","); // Assume que as competências estão separadas por vírgulas
+    const skills = candidate.skills.toUpperCase().trim().split(","); // Assume que as competências estão separadas por vírgulas
     skills.forEach((skill: string) => {
-      skill = skill.trim(); // Remove espaços em branco
+      skill = skill.trim();
       if (skillCounts[skill]) {
         skillCounts[skill]++;
       } else {
@@ -44,13 +44,18 @@ export function renderCandidateList(container: HTMLElement | null) {
   graphDiv.style.alignItems = "flex-end";
   graphDiv.style.marginTop = "20px";
 
-  // Adiciona cada barra ao gráfico
+  // Adicionar cada barra ao gráfico
   skills.forEach((skill, index) => {
+    const barContainer = document.createElement("div");
+    barContainer.style.display = "flex";
+    barContainer.style.flexDirection = "column";
+    barContainer.style.alignItems = "center";
+    barContainer.style.marginRight = "10px";
+
     const barDiv = document.createElement("div");
     barDiv.style.width = "50px"; // Largura da barra
     barDiv.style.height = `${counts[index] * 20}px`; // Altura da barra proporcional
     barDiv.style.backgroundColor = "rgba(75, 192, 192, 0.7)";
-    barDiv.style.marginRight = "10px";
     barDiv.style.display = "flex";
     barDiv.style.alignItems = "flex-end";
     barDiv.style.justifyContent = "center";
@@ -64,8 +69,18 @@ export function renderCandidateList(container: HTMLElement | null) {
     label.style.color = "#000";
     label.style.fontWeight = "bold";
 
+    // Adicionar nome da competência embaixo da barra
+    const skillLabel = document.createElement("span");
+    skillLabel.textContent = skill;
+    skillLabel.style.marginTop = "5px";
+    skillLabel.style.color = "#000";
+    skillLabel.style.fontSize = "12px";
+    skillLabel.style.textAlign = "center";
+
     barDiv.appendChild(label);
-    graphDiv.appendChild(barDiv);
+    barContainer.appendChild(barDiv);
+    barContainer.appendChild(skillLabel); // Nome da competência abaixo da barra
+    graphDiv.appendChild(barContainer);
   });
 
   candidateListDiv.appendChild(graphDiv);

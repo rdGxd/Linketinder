@@ -1,5 +1,3 @@
-package org.example
-
 import org.example.controller.CandidatosController
 import org.example.controller.CompetenciasController
 import org.example.controller.EmpresasController
