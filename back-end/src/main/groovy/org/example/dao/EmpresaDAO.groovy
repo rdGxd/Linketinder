@@ -1,19 +1,21 @@
 package org.example.dao
 
 import org.example.model.Empresa
+import org.example.repository.DbMethods
 
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 
-class EmpresaDAO {
+class EmpresaDAO implements DbMethods<Empresa> {
     private Connection connection
 
     EmpresaDAO(Connection connection) {
         this.connection = connection
     }
 
+    @Override
     void inserir(Empresa empresa) {
         String sql = """
             INSERT INTO empresas (nome_empresa, cnpj, email_corporativo, descricao_empresa, pais, cep, senha)
@@ -33,12 +35,13 @@ class EmpresaDAO {
         }
     }
 
-    void listar() {
-        String sql = "SELECT * FROM empresas "
+    @Override
+    List<Empresa> listar() {
+        String sql = "SELECT * FROM empresas"
         Empresa empresa = null
+        List<Empresa> empresas = new ArrayList<>()
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery()
-            List<Empresa> empresas = new ArrayList<>()
             while (rs.next()) {
                 empresa = new Empresa(
                         id: rs.getInt("id"),
@@ -52,12 +55,13 @@ class EmpresaDAO {
                 )
                 empresas.add(empresa)
             }
-            println(empresas)
         } catch (SQLException e) {
             e.printStackTrace()
         }
+        return empresas
     }
 
+    @Override
     void atualizar(Empresa empresa, int id) {
         String sql = """
             UPDATE empresas SET nome_empresa = ?, cnpj = ?, email_corporativo = ?, descricao_empresa = ?, pais = ?, cep = ?, senha = ?
@@ -78,6 +82,7 @@ class EmpresaDAO {
         }
     }
 
+    @Override
     void deletar(int id) {
         String sql = "DELETE FROM empresas WHERE id = ?"
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {

@@ -1,14 +1,8 @@
 package org.example.model
 
 class Empresa {
-    String nomeEmpresa
-    String cnpj
-    String emailCorporativo
-    String descricaoEmpresa
-    String pais
-    String cep
-    String senha
-    String id
+
+    String nomeEmpresa, cnpj, emailCorporativo, descricaoEmpresa, pais, cep, senha, id
 
     Empresa(String nomeEmpresa, String cnpj, String emailCorporativo, String descricaoEmpresa, String pais, String cep, String senha) {
         this.nomeEmpresa = nomeEmpresa
@@ -22,7 +16,7 @@ class Empresa {
 
     Empresa(Map params) {
         this.id = params.id ?: 0
-        this.nomeEmpresa = params.nome
+        this.nomeEmpresa = params.nomeEmpresa
         this.cnpj = params.cnpj
         this.emailCorporativo = params.emailCorporativo
         this.descricaoEmpresa = params.descricaoEmpresa
