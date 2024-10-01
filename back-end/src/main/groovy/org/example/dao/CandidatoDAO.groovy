@@ -1,19 +1,21 @@
 package org.example.dao
 
 import org.example.model.Candidato
+import org.example.repository.DbMethods
 
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 
-class CandidatoDAO {
+class CandidatoDAO implements DbMethods<Candidato> {
     private Connection connection
 
     CandidatoDAO(Connection connection) {
         this.connection = connection
     }
 
+    @Override
     void inserir(Candidato candidato) {
         String sql = """
             INSERT INTO candidatos (nome, sobrenome, data_nascimento, email, cpf, pais, cep, descricao_pessoal, senha)
@@ -35,7 +37,8 @@ class CandidatoDAO {
         }
     }
 
-    void listar() {
+    @Override
+    List<Candidato> listar() {
         String sql = "SELECT * FROM candidatos"
         Candidato candidato = null
         List<Candidato> candidatos = new ArrayList<>()
@@ -56,12 +59,13 @@ class CandidatoDAO {
                 )
                 candidatos.add(candidato)
             }
-            println(candidatos)
         } catch (SQLException e) {
             e.printStackTrace()
         }
+        return candidatos
     }
 
+    @Override
     void atualizar(Candidato candidato, int id) {
         String sql = """
             UPDATE candidatos SET nome = ?, sobrenome = ?, data_nascimento = ?, email = ?, cpf = ?, pais = ?, cep = ?, descricao_pessoal = ?, senha = ?
@@ -84,6 +88,7 @@ class CandidatoDAO {
         }
     }
 
+    @Override
     void deletar(int id) {
         String sql = "DELETE FROM candidatos WHERE id = ?"
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {

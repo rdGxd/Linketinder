@@ -2,16 +2,8 @@ package org.example.model
 
 
 class Candidato {
-    String nome
-    String sobrenome
-    String dataNascimento
-    String email
-    String cpf
-    String pais
-    String cep
-    String descricaoPessoal
-    String senha
-    String id
+
+    String nome, sobrenome, dataNascimento, email, cpf, pais, cep, descricaoPessoal, senha, id
 
     Candidato(String nome, String sobrenome, String dataNascimento, String email, String cpf, String pais, String cep, String descricaoPessoal, String senha) {
         this.nome = nome
@@ -24,7 +16,6 @@ class Candidato {
         this.descricaoPessoal = descricaoPessoal
         this.senha = senha
     }
-
 
     Candidato(Map params) {
         this.id = params.id ?: 0
