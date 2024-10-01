@@ -2,49 +2,26 @@ package org.example.controller
 
 import org.example.dao.VagaDAO
 import org.example.model.Vaga
-import org.example.repository.SqlFactory
+import org.example.repository.DbConnection
 
 class VagaController {
 
-    private VagaDAO service = new VagaDAO(SqlFactory.conectar())
-    String nomeVaga, descricaoVaga, local, idEmpresa, idVaga
-    def scanner = new Scanner(System.in)
+    private VagaDAO vagaDAO = new VagaDAO(DbConnection.conectar())
 
-    void listar() {
-        service.listar()
+
+    List<Vaga> listar() {
+        return vagaDAO.listar()
     }
 
-    void inserir() {
-        println("Digite o ID da empresa: ")
-        idEmpresa = Integer.parseInt(scanner.nextLine())
-        println "Digite o nome da vaga: "
-        nomeVaga = scanner.nextLine()
-        println "Digite a descrição da vaga: "
-        descricaoVaga = scanner.nextLine()
-        println "Digite o local da vaga: "
-        local = scanner.nextLine()
-        Vaga newVaga = new Vaga(idEmpresa, nomeVaga, descricaoVaga, local)
-        service.inserir(newVaga)
+    void inserir(Vaga newVaga) {
+        vagaDAO.inserir(newVaga)
     }
 
-    void atualizar() {
-        println("Informe o código da vaga que deseja atualizar: ")
-        idVaga = Integer.parseInt(scanner.nextLine())
-        println("Digite o ID da empresa: ")
-        idEmpresa = scanner.nextLine()
-        println "Digite o nome da vaga: "
-        nomeVaga = scanner.nextLine()
-        println "Digite a descrição da vaga: "
-        descricaoVaga = scanner.nextLine()
-        println "Digite o local da vaga: "
-        local = scanner.nextLine()
-        Vaga newVaga = new Vaga(idEmpresa, nomeVaga, descricaoVaga, local)
-        service.atualizar(newVaga, idVaga as int)
+    void atualizar(Vaga newVaga, int idVaga) {
+        vagaDAO.atualizar(newVaga, idVaga)
     }
 
-    void deletar() {
-        println("Informe o código da vaga: ")
-        idVaga = Integer.parseInt(scanner.nextLine())
-        service.deletar(idVaga as int)
+    void deletar(int idVaga) {
+        vagaDAO.deletar(idVaga)
     }
 }

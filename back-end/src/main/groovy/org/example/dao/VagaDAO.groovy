@@ -1,26 +1,27 @@
 package org.example.dao
 
 import org.example.model.Vaga
+import org.example.repository.DbMethods
 
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 
-class VagaDAO {
+class VagaDAO implements DbMethods<Vaga> {
     private Connection connection
 
     VagaDAO(Connection connection) {
         this.connection = connection
     }
 
-
-    void listar() {
+    @Override
+    List<Vaga> listar() {
         String sql = "SELECT * FROM vagas"
         Vaga vaga = null
+        List<Vaga> vagas = new ArrayList<>()
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery()
-            List<Vaga> vagas = new ArrayList<>()
             while (rs.next()) {
                 vaga = new Vaga(
                         id: rs.getInt("id"),
@@ -31,13 +32,13 @@ class VagaDAO {
                 )
                 vagas.add(vaga)
             }
-            println(vagas)
         } catch (SQLException e) {
             e.printStackTrace()
         }
+        return vagas
     }
 
-    // Criar vaga
+    @Override
     void inserir(Vaga vaga) {
         String sql = """
             INSERT INTO vagas (id_empresa, nome_vaga, descricao_vaga, local)
@@ -55,8 +56,7 @@ class VagaDAO {
 
     }
 
-
-    // Atualizar vaga
+    @Override
     void atualizar(Vaga vaga, int id) {
         String sql = """
             UPDATE vagas
@@ -75,8 +75,7 @@ class VagaDAO {
         }
     }
 
-
-    // Deletar vaga
+    @Override
     void deletar(int id) {
         String sql = "DELETE FROM vagas WHERE id = ?"
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
