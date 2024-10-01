@@ -1,8 +1,8 @@
 package org.example.model
 
 class Competencia {
-    String id
-    String nomeCompetencia
+
+    String id, nomeCompetencia
 
     Competencia(String nomeCompetencia) {
         this.nomeCompetencia = nomeCompetencia

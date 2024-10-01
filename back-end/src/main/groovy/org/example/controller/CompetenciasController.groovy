@@ -2,37 +2,24 @@ package org.example.controller
 
 import org.example.dao.CompetenciaDAO
 import org.example.model.Competencia
-import org.example.repository.SqlFactory
+import org.example.repository.DbConnection
 
 class CompetenciasController {
-    private CompetenciaDAO service = new CompetenciaDAO(SqlFactory.conectar())
-    String nomeCompetencia
-    int idCompetencia
-    def scanner = new Scanner(System.in)
+    private CompetenciaDAO competenciaDAO = new CompetenciaDAO(DbConnection.conectar())
 
-    void listar() {
-        service.listar()
+    List<Competencia> listar() {
+        return competenciaDAO.listar()
     }
 
-    void inserir() {
-        println "Digite o nome da vaga: "
-        nomeCompetencia = scanner.nextLine()
-        Competencia newVaga = new Competencia(nomeCompetencia)
-        service.inserir(newVaga)
+    void inserir(Competencia newVaga) {
+        competenciaDAO.inserir(newVaga)
     }
 
-    void atualizar() {
-        println("Informe o código da vaga que deseja atualizar: ")
-        idCompetencia = Integer.parseInt(scanner.nextLine())
-        println "Digite o nome da vaga: "
-        nomeCompetencia = scanner.nextLine()
-        Competencia newVaga = new Competencia(nomeCompetencia)
-        service.atualizar(newVaga, idCompetencia as int)
+    void atualizar(Competencia newVaga, int idCompetencia) {
+        competenciaDAO.atualizar(newVaga, idCompetencia)
     }
 
-    void deletar() {
-        println("Informe o código da vaga: ")
-        idCompetencia = Integer.parseInt(scanner.nextLine())
-        service.deletar(idCompetencia as int)
+    void deletar(int id) {
+        competenciaDAO.deletar(id)
     }
 }
