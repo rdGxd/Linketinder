@@ -1,29 +1,18 @@
 package org.example.dao
 
 import org.example.model.Competencia
-import org.example.repository.DbMethods
+import org.example.repository.CRUDMethods
 
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 
-class CompetenciaDAO implements DbMethods<Competencia> {
+class CompetenciaDAO implements CRUDMethods<Competencia> {
     private Connection connection
 
     CompetenciaDAO(Connection connection) {
         this.connection = connection
-    }
-
-    @Override
-    void inserir(Competencia competencia) {
-        String sql = "INSERT INTO competencias (nome_competencia) VALUES (?)"
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, competencia.nomeCompetencia)
-            stmt.executeUpdate()
-        } catch (SQLException e) {
-            e.printStackTrace()
-        }
     }
 
     @Override
@@ -48,12 +37,21 @@ class CompetenciaDAO implements DbMethods<Competencia> {
     }
 
     @Override
+    void inserir(Competencia competencia) {
+        String sql = "INSERT INTO competencias (nome_competencia) VALUES (?)"
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            setEntityOnDb(competencia, stmt)
+        } catch (SQLException e) {
+            e.printStackTrace()
+        }
+    }
+
+    @Override
     void atualizar(Competencia competencia, int id) {
         String sql = "UPDATE competencias SET nome_competencia = ? WHERE id = ?"
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, competencia.nomeCompetencia)
             stmt.setInt(2, id)
-            stmt.executeUpdate()
+            setEntityOnDb(competencia, stmt)
         } catch (SQLException e) {
             e.printStackTrace()
         }
@@ -68,5 +66,11 @@ class CompetenciaDAO implements DbMethods<Competencia> {
         } catch (SQLException e) {
             e.printStackTrace()
         }
+    }
+
+    @Override
+    void setEntityOnDb(Competencia competencia, PreparedStatement stmt) {
+        stmt.setString(1, competencia.nomeCompetencia)
+        stmt.executeUpdate()
     }
 }
