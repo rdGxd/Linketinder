@@ -72,10 +72,8 @@ export function renderCandidateForm(container: HTMLElement | null) {
       return;
     }
 
-    // Adicionar o novo candidato à lista de candidatos
     candidates.push(candidate);
 
-    // Atualizar o localStorage com a lista de candidatos
     localStorage.setItem("candidatos", JSON.stringify(candidates));
 
     console.log("Candidato salvo:", candidate);
