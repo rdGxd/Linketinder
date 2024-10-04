@@ -1,5 +1,6 @@
 package org.example.dao
 
+import org.example.mapper.EmpresaMapper
 import org.example.model.Empresa
 import org.example.repository.CRUDMethods
 
@@ -18,12 +19,11 @@ class EmpresaDAO implements CRUDMethods<Empresa> {
     @Override
     List<Empresa> listar() {
         String sql = "SELECT * FROM empresas"
-        Empresa empresa = null
         List<Empresa> empresas = new ArrayList<>()
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery()
             while (rs.next()) {
-                empresa = new Empresa(
+                empresas.add(new Empresa(
                         id: rs.getInt("id"),
                         nomeEmpresa: rs.getString("nome_empresa"),
                         cnpj: rs.getString("cnpj"),
@@ -32,8 +32,7 @@ class EmpresaDAO implements CRUDMethods<Empresa> {
                         pais: rs.getString("pais"),
                         cep: rs.getString("cep"),
                         senha: rs.getString("senha")
-                )
-                empresas.add(empresa)
+                ))
             }
         } catch (SQLException e) {
             e.printStackTrace()
@@ -48,7 +47,7 @@ class EmpresaDAO implements CRUDMethods<Empresa> {
             VALUES (?, ?, ?, ?, ?, ?, ?)
         """
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            setEntityOnDb(empresa, stmt)
+            EmpresaMapper.setEntityOnDb(empresa, stmt)
         } catch (SQLException e) {
             e.printStackTrace()
         }
@@ -61,8 +60,8 @@ class EmpresaDAO implements CRUDMethods<Empresa> {
             WHERE id = ?
         """
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            setEntityOnDb(empresa, stmt)
             stmt.setInt(8, id)
+            EmpresaMapper.setEntityOnDb(empresa, stmt)
         } catch (SQLException e) {
             e.printStackTrace()
         }
@@ -77,17 +76,5 @@ class EmpresaDAO implements CRUDMethods<Empresa> {
         } catch (SQLException e) {
             e.printStackTrace()
         }
-    }
-
-    @Override
-    void setEntityOnDb(Empresa empresa, PreparedStatement stmt) {
-        stmt.setString(1, empresa.nomeEmpresa)
-        stmt.setString(2, empresa.cnpj)
-        stmt.setString(3, empresa.emailCorporativo)
-        stmt.setString(4, empresa.descricaoEmpresa)
-        stmt.setString(5, empresa.pais)
-        stmt.setString(6, empresa.cep)
-        stmt.setString(7, empresa.senha)
-        stmt.executeUpdate()
     }
 }

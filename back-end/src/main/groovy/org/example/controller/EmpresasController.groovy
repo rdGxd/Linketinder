@@ -1,12 +1,16 @@
 package org.example.controller
 
+
 import org.example.dao.EmpresaDAO
 import org.example.model.Empresa
-import org.example.repository.DbConnection
 
 class EmpresasController {
 
-    private EmpresaDAO empresaDAO = new EmpresaDAO(DbConnection.conectar())
+    private final EmpresaDAO empresaDAO
+
+    EmpresasController(EmpresaDAO empresaDAO) {
+        this.empresaDAO = empresaDAO
+    }
 
     List<Empresa> listar() { return empresaDAO.listar() }
 
