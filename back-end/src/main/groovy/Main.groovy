@@ -1,3 +1,4 @@
+import org.example.Database.Postgres
 import org.example.controller.CandidatosController
 import org.example.controller.CompetenciasController
 import org.example.controller.EmpresasController
@@ -10,7 +11,6 @@ import org.example.model.Candidato
 import org.example.model.Competencia
 import org.example.model.Empresa
 import org.example.model.Vaga
-import org.example.repository.Postgres
 
 import java.sql.Connection
 
