@@ -1,11 +1,17 @@
 package org.example.controller
 
+
 import org.example.dao.CompetenciaDAO
 import org.example.model.Competencia
-import org.example.repository.DbConnection
 
 class CompetenciasController {
-    private CompetenciaDAO competenciaDAO = new CompetenciaDAO(DbConnection.conectar())
+
+
+    private final CompetenciaDAO competenciaDAO
+
+    CompetenciasController(CompetenciaDAO competenciaDAO) {
+        this.competenciaDAO = competenciaDAO
+    }
 
     List<Competencia> listar() {
         return competenciaDAO.listar()

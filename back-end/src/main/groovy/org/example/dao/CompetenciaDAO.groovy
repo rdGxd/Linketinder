@@ -1,5 +1,6 @@
 package org.example.dao
 
+import org.example.mapper.CompetenciaMapper
 import org.example.model.Competencia
 import org.example.repository.CRUDMethods
 
@@ -18,16 +19,14 @@ class CompetenciaDAO implements CRUDMethods<Competencia> {
     @Override
     List<Competencia> listar() {
         String sql = "SELECT * FROM competencias"
-        Competencia competencia = null
         List<Competencia> competencias = new ArrayList<>()
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery()
             while (rs.next()) {
-                competencia = new Competencia(
+                competencias.add(new Competencia(
                         id: rs.getInt("id"),
                         nomeCompetencia: rs.getString("nome_competencia")
-                )
-                competencias.add(competencia)
+                ))
             }
         } catch (SQLException e) {
             e.printStackTrace()
@@ -40,7 +39,7 @@ class CompetenciaDAO implements CRUDMethods<Competencia> {
     void inserir(Competencia competencia) {
         String sql = "INSERT INTO competencias (nome_competencia) VALUES (?)"
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            setEntityOnDb(competencia, stmt)
+            CompetenciaMapper.setEntityOnDb(competencia, stmt)
         } catch (SQLException e) {
             e.printStackTrace()
         }
@@ -51,7 +50,7 @@ class CompetenciaDAO implements CRUDMethods<Competencia> {
         String sql = "UPDATE competencias SET nome_competencia = ? WHERE id = ?"
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(2, id)
-            setEntityOnDb(competencia, stmt)
+            CompetenciaMapper.setEntityOnDb(competencia, stmt)
         } catch (SQLException e) {
             e.printStackTrace()
         }
@@ -68,9 +67,4 @@ class CompetenciaDAO implements CRUDMethods<Competencia> {
         }
     }
 
-    @Override
-    void setEntityOnDb(Competencia competencia, PreparedStatement stmt) {
-        stmt.setString(1, competencia.nomeCompetencia)
-        stmt.executeUpdate()
-    }
 }
