@@ -1,5 +1,6 @@
 package org.example.dao
 
+import org.example.mapper.VagaMapper
 import org.example.model.Vaga
 import org.example.repository.CRUDMethods
 
@@ -18,19 +19,17 @@ class VagaDAO implements CRUDMethods<Vaga> {
     @Override
     List<Vaga> listar() {
         String sql = "SELECT * FROM vagas"
-        Vaga vaga = null
         List<Vaga> vagas = new ArrayList<>()
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery()
             while (rs.next()) {
-                vaga = new Vaga(
+                vagas.add(new Vaga(
                         id: rs.getInt("id"),
                         idEmpresa: rs.getInt("id_empresa"),
                         nomeVaga: rs.getString("nome_vaga"),
                         descricaoVaga: rs.getString("descricao_vaga"),
                         local: rs.getString("local")
-                )
-                vagas.add(vaga)
+                ))
             }
         } catch (SQLException e) {
             e.printStackTrace()
@@ -45,7 +44,7 @@ class VagaDAO implements CRUDMethods<Vaga> {
             VALUES (?, ?, ?, ?)
         """
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            setEntityOnDb(vaga, stmt)
+            VagaMapper.setEntityOnDb(vaga, stmt)
         } catch (SQLException e) {
             e.printStackTrace()
         }
@@ -61,7 +60,7 @@ class VagaDAO implements CRUDMethods<Vaga> {
         """
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(5, id)
-            setEntityOnDb(vaga, stmt)
+            VagaMapper.setEntityOnDb(vaga, stmt)
         } catch (SQLException e) {
             e.printStackTrace()
         }
@@ -78,12 +77,5 @@ class VagaDAO implements CRUDMethods<Vaga> {
         }
     }
 
-    @Override
-    void setEntityOnDb(Vaga vaga, PreparedStatement stmt) {
-        stmt.setInt(1, vaga.idEmpresa as int)
-        stmt.setString(2, vaga.nomeVaga)
-        stmt.setString(3, vaga.descricaoVaga)
-        stmt.setString(4, vaga.local)
-        stmt.executeUpdate()
-    }
+
 }
