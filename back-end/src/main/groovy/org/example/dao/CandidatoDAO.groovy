@@ -1,5 +1,6 @@
 package org.example.dao
 
+import org.example.mapper.CandidatoMapper
 import org.example.model.Candidato
 import org.example.repository.CRUDMethods
 
@@ -18,12 +19,11 @@ class CandidatoDAO implements CRUDMethods<Candidato> {
     @Override
     List<Candidato> listar() {
         String sql = 'SELECT * FROM candidatos'
-        Candidato candidato = null
         List<Candidato> candidatos = new ArrayList<>()
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            ResultSet rs = stmt.executeQuery()
+        try (PreparedStatement stmt = connection.prepareStatement(sql)
+             ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                candidato = new Candidato(
+                candidatos.add(new Candidato(
                         id: rs.getInt("id"),
                         nome: rs.getString("nome"),
                         sobrenome: rs.getString("sobrenome"),
@@ -34,8 +34,7 @@ class CandidatoDAO implements CRUDMethods<Candidato> {
                         cep: rs.getString("cep"),
                         descricaoPessoal: rs.getString("descricao_pessoal"),
                         senha: rs.getString("senha")
-                )
-                candidatos.add(candidato)
+                ))
             }
         } catch (SQLException e) {
             e.printStackTrace()
@@ -50,7 +49,7 @@ class CandidatoDAO implements CRUDMethods<Candidato> {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         '''
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            setEntityOnDb(candidato, stmt)
+            CandidatoMapper.setEntityOnDb(candidato, stmt)
         } catch (SQLException e) {
             e.printStackTrace()
         }
@@ -64,7 +63,7 @@ class CandidatoDAO implements CRUDMethods<Candidato> {
         '''
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(10, id)
-            setEntityOnDb(candidato, stmt)
+            CandidatoMapper.setEntityOnDb(candidato, stmt)
         } catch (SQLException e) {
             e.printStackTrace()
         }
@@ -79,19 +78,5 @@ class CandidatoDAO implements CRUDMethods<Candidato> {
         } catch (SQLException e) {
             e.printStackTrace()
         }
-    }
-
-    @Override
-    void setEntityOnDb(Candidato candidato, PreparedStatement stmt) {
-        stmt.setString(1, candidato.nome)
-        stmt.setString(2, candidato.sobrenome)
-        stmt.setDate(3, java.sql.Date.valueOf(candidato.dataNascimento))
-        stmt.setString(4, candidato.email)
-        stmt.setString(5, candidato.cpf)
-        stmt.setString(6, candidato.pais)
-        stmt.setString(7, candidato.cep)
-        stmt.setString(8, candidato.descricaoPessoal)
-        stmt.setString(9, candidato.senha)
-        stmt.executeUpdate()
     }
 }

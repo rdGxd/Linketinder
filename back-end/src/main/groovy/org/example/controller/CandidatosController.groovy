@@ -2,10 +2,14 @@ package org.example.controller
 
 import org.example.dao.CandidatoDAO
 import org.example.model.Candidato
-import org.example.repository.DbConnection
 
 class CandidatosController {
-    private CandidatoDAO candidatoDAO = new CandidatoDAO(DbConnection.conectar())
+
+    private final CandidatoDAO candidatoDAO
+
+    CandidatosController(CandidatoDAO candidatoDAO) {
+        this.candidatoDAO = candidatoDAO
+    }
 
     List<Candidato> listar() {
         return candidatoDAO.listar()
