@@ -11,15 +11,9 @@ class CandidatosController {
         return candidatoDAO.listar()
     }
 
-    void inserir(Candidato newUser) {
-        candidatoDAO.inserir(newUser)
-    }
+    void inserir(Candidato newUser) { candidatoDAO.inserir(newUser) }
 
-    void atualizar(Candidato newUser, int id) {
-        candidatoDAO.atualizar(newUser, id)
-    }
+    void atualizar(Candidato newUser, int id) { candidatoDAO.atualizar(newUser, id) }
 
-    void deletar(int id) {
-        candidatoDAO.deletar(id)
-    }
+    void deletar(int id) { candidatoDAO.deletar(id) }
 }

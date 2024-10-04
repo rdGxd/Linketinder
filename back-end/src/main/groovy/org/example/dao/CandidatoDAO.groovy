@@ -1,14 +1,14 @@
 package org.example.dao
 
 import org.example.model.Candidato
-import org.example.repository.DbMethods
+import org.example.repository.CRUDMethods
 
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 
-class CandidatoDAO implements DbMethods<Candidato> {
+class CandidatoDAO implements CRUDMethods<Candidato> {
     private Connection connection
 
     CandidatoDAO(Connection connection) {
@@ -16,30 +16,8 @@ class CandidatoDAO implements DbMethods<Candidato> {
     }
 
     @Override
-    void inserir(Candidato candidato) {
-        String sql = """
-            INSERT INTO candidatos (nome, sobrenome, data_nascimento, email, cpf, pais, cep, descricao_pessoal, senha)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, candidato.nome)
-            stmt.setString(2, candidato.sobrenome)
-            stmt.setDate(3, java.sql.Date.valueOf(candidato.dataNascimento))
-            stmt.setString(4, candidato.email)
-            stmt.setString(5, candidato.cpf)
-            stmt.setString(6, candidato.pais)
-            stmt.setString(7, candidato.cep)
-            stmt.setString(8, candidato.descricaoPessoal)
-            stmt.setString(9, candidato.senha)
-            stmt.executeUpdate()
-        } catch (SQLException e) {
-            e.printStackTrace()
-        }
-    }
-
-    @Override
     List<Candidato> listar() {
-        String sql = "SELECT * FROM candidatos"
+        String sql = 'SELECT * FROM candidatos'
         Candidato candidato = null
         List<Candidato> candidatos = new ArrayList<>()
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -66,23 +44,27 @@ class CandidatoDAO implements DbMethods<Candidato> {
     }
 
     @Override
+    void inserir(Candidato candidato) {
+        String sql = '''
+            INSERT INTO candidatos (nome, sobrenome, data_nascimento, email, cpf, pais, cep, descricao_pessoal, senha)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        '''
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            setEntityOnDb(candidato, stmt)
+        } catch (SQLException e) {
+            e.printStackTrace()
+        }
+    }
+
+    @Override
     void atualizar(Candidato candidato, int id) {
-        String sql = """
+        String sql = '''
             UPDATE candidatos SET nome = ?, sobrenome = ?, data_nascimento = ?, email = ?, cpf = ?, pais = ?, cep = ?, descricao_pessoal = ?, senha = ?
             WHERE id = ?
-        """
+        '''
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, candidato.nome)
-            stmt.setString(2, candidato.sobrenome)
-            stmt.setDate(3, java.sql.Date.valueOf(candidato.dataNascimento))
-            stmt.setString(4, candidato.email)
-            stmt.setString(5, candidato.cpf)
-            stmt.setString(6, candidato.pais)
-            stmt.setString(7, candidato.cep)
-            stmt.setString(8, candidato.descricaoPessoal)
-            stmt.setString(9, candidato.senha)
             stmt.setInt(10, id)
-            stmt.executeUpdate()
+            setEntityOnDb(candidato, stmt)
         } catch (SQLException e) {
             e.printStackTrace()
         }
@@ -90,12 +72,26 @@ class CandidatoDAO implements DbMethods<Candidato> {
 
     @Override
     void deletar(int id) {
-        String sql = "DELETE FROM candidatos WHERE id = ?"
+        String sql = 'DELETE FROM candidatos WHERE id = ?'
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id)
             stmt.executeUpdate()
         } catch (SQLException e) {
             e.printStackTrace()
         }
+    }
+
+    @Override
+    void setEntityOnDb(Candidato candidato, PreparedStatement stmt) {
+        stmt.setString(1, candidato.nome)
+        stmt.setString(2, candidato.sobrenome)
+        stmt.setDate(3, java.sql.Date.valueOf(candidato.dataNascimento))
+        stmt.setString(4, candidato.email)
+        stmt.setString(5, candidato.cpf)
+        stmt.setString(6, candidato.pais)
+        stmt.setString(7, candidato.cep)
+        stmt.setString(8, candidato.descricaoPessoal)
+        stmt.setString(9, candidato.senha)
+        stmt.executeUpdate()
     }
 }
