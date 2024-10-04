@@ -1,14 +1,14 @@
 package org.example.dao
 
 import org.example.model.Vaga
-import org.example.repository.DbMethods
+import org.example.repository.CRUDMethods
 
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 
-class VagaDAO implements DbMethods<Vaga> {
+class VagaDAO implements CRUDMethods<Vaga> {
     private Connection connection
 
     VagaDAO(Connection connection) {
@@ -45,11 +45,7 @@ class VagaDAO implements DbMethods<Vaga> {
             VALUES (?, ?, ?, ?)
         """
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, vaga.idEmpresa as int)
-            stmt.setString(2, vaga.nomeVaga)
-            stmt.setString(3, vaga.descricaoVaga)
-            stmt.setString(4, vaga.local)
-            stmt.executeUpdate()
+            setEntityOnDb(vaga, stmt)
         } catch (SQLException e) {
             e.printStackTrace()
         }
@@ -64,12 +60,8 @@ class VagaDAO implements DbMethods<Vaga> {
             WHERE id = ?
         """
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, vaga.idEmpresa as int)
-            stmt.setString(2, vaga.nomeVaga)
-            stmt.setString(3, vaga.descricaoVaga)
-            stmt.setString(4, vaga.local)
             stmt.setInt(5, id)
-            stmt.executeUpdate()
+            setEntityOnDb(vaga, stmt)
         } catch (SQLException e) {
             e.printStackTrace()
         }
@@ -84,5 +76,14 @@ class VagaDAO implements DbMethods<Vaga> {
         } catch (SQLException e) {
             e.printStackTrace()
         }
+    }
+
+    @Override
+    void setEntityOnDb(Vaga vaga, PreparedStatement stmt) {
+        stmt.setInt(1, vaga.idEmpresa as int)
+        stmt.setString(2, vaga.nomeVaga)
+        stmt.setString(3, vaga.descricaoVaga)
+        stmt.setString(4, vaga.local)
+        stmt.executeUpdate()
     }
 }
