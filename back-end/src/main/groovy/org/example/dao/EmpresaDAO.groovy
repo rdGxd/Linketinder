@@ -1,38 +1,18 @@
 package org.example.dao
 
 import org.example.model.Empresa
-import org.example.repository.DbMethods
+import org.example.repository.CRUDMethods
 
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 
-class EmpresaDAO implements DbMethods<Empresa> {
+class EmpresaDAO implements CRUDMethods<Empresa> {
     private Connection connection
 
     EmpresaDAO(Connection connection) {
         this.connection = connection
-    }
-
-    @Override
-    void inserir(Empresa empresa) {
-        String sql = """
-            INSERT INTO empresas (nome_empresa, cnpj, email_corporativo, descricao_empresa, pais, cep, senha)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        """
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, empresa.nomeEmpresa)
-            stmt.setString(2, empresa.cnpj)
-            stmt.setString(3, empresa.emailCorporativo)
-            stmt.setString(4, empresa.descricaoEmpresa)
-            stmt.setString(5, empresa.pais)
-            stmt.setString(6, empresa.cep)
-            stmt.setString(7, empresa.senha)
-            stmt.executeUpdate()
-        } catch (SQLException e) {
-            e.printStackTrace()
-        }
     }
 
     @Override
@@ -62,21 +42,27 @@ class EmpresaDAO implements DbMethods<Empresa> {
     }
 
     @Override
+    void inserir(Empresa empresa) {
+        String sql = """
+            INSERT INTO empresas (nome_empresa, cnpj, email_corporativo, descricao_empresa, pais, cep, senha)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            setEntityOnDb(empresa, stmt)
+        } catch (SQLException e) {
+            e.printStackTrace()
+        }
+    }
+
+    @Override
     void atualizar(Empresa empresa, int id) {
         String sql = """
             UPDATE empresas SET nome_empresa = ?, cnpj = ?, email_corporativo = ?, descricao_empresa = ?, pais = ?, cep = ?, senha = ?
             WHERE id = ?
         """
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, empresa.nomeEmpresa)
-            stmt.setString(2, empresa.cnpj)
-            stmt.setString(3, empresa.emailCorporativo)
-            stmt.setString(4, empresa.descricaoEmpresa)
-            stmt.setString(5, empresa.pais)
-            stmt.setString(6, empresa.cep)
-            stmt.setString(7, empresa.senha)
+            setEntityOnDb(empresa, stmt)
             stmt.setInt(8, id)
-            stmt.executeUpdate()
         } catch (SQLException e) {
             e.printStackTrace()
         }
@@ -91,5 +77,17 @@ class EmpresaDAO implements DbMethods<Empresa> {
         } catch (SQLException e) {
             e.printStackTrace()
         }
+    }
+
+    @Override
+    void setEntityOnDb(Empresa empresa, PreparedStatement stmt) {
+        stmt.setString(1, empresa.nomeEmpresa)
+        stmt.setString(2, empresa.cnpj)
+        stmt.setString(3, empresa.emailCorporativo)
+        stmt.setString(4, empresa.descricaoEmpresa)
+        stmt.setString(5, empresa.pais)
+        stmt.setString(6, empresa.cep)
+        stmt.setString(7, empresa.senha)
+        stmt.executeUpdate()
     }
 }

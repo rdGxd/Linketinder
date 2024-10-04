@@ -8,19 +8,11 @@ class EmpresasController {
 
     private EmpresaDAO empresaDAO = new EmpresaDAO(DbConnection.conectar())
 
-    List<Empresa> listar() {
-        return empresaDAO.listar()
-    }
+    List<Empresa> listar() { return empresaDAO.listar() }
 
-    void inserir(Empresa newEmpresa) {
-        empresaDAO.inserir(newEmpresa)
-    }
+    void inserir(Empresa newEmpresa) { empresaDAO.inserir(newEmpresa) }
 
-    void atualizar(Empresa newEmpresa, int id) {
-        empresaDAO.atualizar(newEmpresa, id)
-    }
+    void atualizar(Empresa newEmpresa, int id) { empresaDAO.atualizar(newEmpresa, id) }
 
-    void deletar(int id) {
-        empresaDAO.deletar(id)
-    }
+    void deletar(int id) { empresaDAO.deletar(id) }
 }
