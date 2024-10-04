@@ -2,7 +2,6 @@ export function renderCandidateList(container) {
     if (!container)
         return;
     const candidates = JSON.parse(localStorage.getItem("candidatos") || "[]");
-    // Exibir a lista de candidatos
     const candidateListDiv = document.createElement("div");
     candidateListDiv.innerHTML = `<h3>Candidatos Anônimos</h3>`;
     const ul = document.createElement("ul");
@@ -16,10 +15,9 @@ export function renderCandidateList(container) {
     });
     candidateListDiv.appendChild(ul);
     container.appendChild(candidateListDiv);
-    // Contar a quantidade de candidatos por competência
     const skillCounts = {};
     candidates.forEach((candidate) => {
-        const skills = candidate.skills.toUpperCase().trim().split(","); // Assume que as competências estão separadas por vírgulas
+        const skills = candidate.skills.toUpperCase().trim().split(",");
         skills.forEach((skill) => {
             skill = skill.trim();
             if (skillCounts[skill]) {
@@ -30,15 +28,12 @@ export function renderCandidateList(container) {
             }
         });
     });
-    // Preparar os dados para o gráfico
     const skills = Object.keys(skillCounts);
     const counts = Object.values(skillCounts);
-    // Criar gráfico de barras
     const graphDiv = document.createElement("div");
     graphDiv.style.display = "flex";
     graphDiv.style.alignItems = "flex-end";
     graphDiv.style.marginTop = "20px";
-    // Adicionar cada barra ao gráfico
     skills.forEach((skill, index) => {
         const barContainer = document.createElement("div");
         barContainer.style.display = "flex";
@@ -46,21 +41,19 @@ export function renderCandidateList(container) {
         barContainer.style.alignItems = "center";
         barContainer.style.marginRight = "10px";
         const barDiv = document.createElement("div");
-        barDiv.style.width = "50px"; // Largura da barra
-        barDiv.style.height = `${counts[index] * 20}px`; // Altura da barra proporcional
+        barDiv.style.width = "50px";
+        barDiv.style.height = `${counts[index] * 20}px`;
         barDiv.style.backgroundColor = "rgba(75, 192, 192, 0.7)";
         barDiv.style.display = "flex";
         barDiv.style.alignItems = "flex-end";
         barDiv.style.justifyContent = "center";
         barDiv.style.position = "relative";
-        // Adiciona o número de candidatos acima da barra
         const label = document.createElement("span");
         label.textContent = counts[index].toString();
         label.style.position = "absolute";
         label.style.bottom = "100%";
         label.style.color = "#000";
         label.style.fontWeight = "bold";
-        // Adicionar nome da competência embaixo da barra
         const skillLabel = document.createElement("span");
         skillLabel.textContent = skill;
         skillLabel.style.marginTop = "5px";
@@ -69,7 +62,7 @@ export function renderCandidateList(container) {
         skillLabel.style.textAlign = "center";
         barDiv.appendChild(label);
         barContainer.appendChild(barDiv);
-        barContainer.appendChild(skillLabel); // Nome da competência abaixo da barra
+        barContainer.appendChild(skillLabel);
         graphDiv.appendChild(barContainer);
     });
     candidateListDiv.appendChild(graphDiv);
