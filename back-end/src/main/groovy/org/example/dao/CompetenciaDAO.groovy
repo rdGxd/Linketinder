@@ -2,14 +2,14 @@ package org.example.dao
 
 import org.example.mapper.CompetenciaMapper
 import org.example.model.Competencia
-import org.example.repository.CRUDMethods
+import org.example.repository.ICompetencia
 
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 
-class CompetenciaDAO implements CRUDMethods<Competencia> {
+class CompetenciaDAO implements ICompetencia {
     private Connection connection
 
     CompetenciaDAO(Connection connection) {

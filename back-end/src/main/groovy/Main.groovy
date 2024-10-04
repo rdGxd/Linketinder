@@ -11,6 +11,7 @@ import org.example.model.Candidato
 import org.example.model.Competencia
 import org.example.model.Empresa
 import org.example.model.Vaga
+import org.example.utils.UserInputHandler
 
 import java.sql.Connection
 

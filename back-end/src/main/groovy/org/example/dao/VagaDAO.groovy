@@ -2,14 +2,14 @@ package org.example.dao
 
 import org.example.mapper.VagaMapper
 import org.example.model.Vaga
-import org.example.repository.CRUDMethods
+import org.example.repository.IVaga
 
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 
-class VagaDAO implements CRUDMethods<Vaga> {
+class VagaDAO implements IVaga {
     private Connection connection
 
     VagaDAO(Connection connection) {

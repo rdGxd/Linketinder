@@ -2,14 +2,14 @@ package org.example.dao
 
 import org.example.mapper.EmpresaMapper
 import org.example.model.Empresa
-import org.example.repository.CRUDMethods
+import org.example.repository.IEmpresa
 
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 
-class EmpresaDAO implements CRUDMethods<Empresa> {
+class EmpresaDAO implements IEmpresa {
     private Connection connection
 
     EmpresaDAO(Connection connection) {
