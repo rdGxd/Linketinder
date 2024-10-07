@@ -2,7 +2,7 @@ package org.example.repository
 
 import org.example.model.Vaga
 
-interface IVaga {
+interface IVaga extends ICrud<Vaga> {
 
     List<Vaga> listar()
 

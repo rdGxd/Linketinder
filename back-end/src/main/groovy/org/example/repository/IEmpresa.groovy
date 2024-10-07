@@ -2,7 +2,7 @@ package org.example.repository
 
 import org.example.model.Empresa
 
-interface IEmpresa {
+interface IEmpresa extends ICrud<Empresa> {
 
     List<Empresa> listar()
 

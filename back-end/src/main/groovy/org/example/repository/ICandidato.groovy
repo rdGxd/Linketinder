@@ -2,7 +2,7 @@ package org.example.repository
 
 import org.example.model.Candidato
 
-interface ICandidato {
+interface ICandidato extends ICrud<Candidato> {
 
     List<Candidato> listar()
 

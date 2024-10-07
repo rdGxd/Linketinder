@@ -2,7 +2,7 @@ package org.example.repository
 
 import org.example.model.Competencia
 
-interface ICompetencia {
+interface ICompetencia extends ICrud<Competencia> {
 
     List<Competencia> listar()
 
