@@ -2,14 +2,14 @@ package org.example.dao
 
 import org.example.mapper.CandidatoMapper
 import org.example.model.Candidato
-import org.example.repository.ICandidato
+import org.example.repository.ICrud
 
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 
-class CandidatoDAO implements ICandidato {
+class CandidatoDAO implements ICrud<Candidato> {
     private Connection connection
 
     CandidatoDAO(Connection connection) {

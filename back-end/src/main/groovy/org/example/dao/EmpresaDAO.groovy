@@ -2,14 +2,14 @@ package org.example.dao
 
 import org.example.mapper.EmpresaMapper
 import org.example.model.Empresa
-import org.example.repository.IEmpresa
+import org.example.repository.ICrud
 
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 
-class EmpresaDAO implements IEmpresa {
+class EmpresaDAO implements ICrud<Empresa> {
     private Connection connection
 
     EmpresaDAO(Connection connection) {
