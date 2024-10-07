@@ -1,6 +1,6 @@
 package org.example.utils
 
-class InputHandler {
+class DataInputHandler {
     Scanner scanner = new Scanner(System.in)
 
     String getInput(String prompt) {

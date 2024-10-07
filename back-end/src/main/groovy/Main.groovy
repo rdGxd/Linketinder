@@ -11,13 +11,13 @@ import org.example.model.Candidato
 import org.example.model.Competencia
 import org.example.model.Empresa
 import org.example.model.Vaga
-import org.example.utils.InputHandler
-import org.example.utils.ShowOptions
+import org.example.utils.DataInputHandler
+import org.example.utils.OptionInputHandler
 
 import java.sql.Connection
 
 static void main(String[] args) {
-    InputHandler inputHandler = new InputHandler()
+    DataInputHandler inputHandler = new DataInputHandler()
 
     Connection connection = new Postgres().conectar()
 
@@ -31,7 +31,7 @@ static void main(String[] args) {
     VagaController vagasController = new VagaController(vagaDAO)
     CompetenciasController competenciasController = new CompetenciasController(competenciaDAO)
 
-    ShowOptions userInputHandler = new ShowOptions()
+    OptionInputHandler userInputHandler = new OptionInputHandler()
 
     String nome, email, pais, cep, descricao, sobrenome, cpf, senha, dataNascimento, cnpj, local, idAttVaga
     int id

@@ -1,6 +1,6 @@
 package org.example.utils
 
-class ShowOptions {
+class OptionInputHandler {
     private final Scanner scanner = new Scanner(System.in)
 
     int getOption() {
