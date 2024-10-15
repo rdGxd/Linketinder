@@ -1,4 +1,4 @@
-import { cep, cnpj, email, nome, regex } from "../utils/regex.js";
+import { handleCompanyFormSubmit } from "./companyFormHandler.js";
 export function renderCompanyForm(container) {
     if (!container)
         return;
@@ -45,29 +45,5 @@ export function renderCompanyForm(container) {
         </form>
     `;
     const form = document.getElementById("companyForm");
-    form === null || form === void 0 ? void 0 : form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const formData = new FormData(form);
-        const empresa = Object.fromEntries(formData.entries());
-        const empresas = JSON.parse(localStorage.getItem("empresas") || "[]");
-        empresas.push(empresa);
-        if (!regex(nome, formData.get("companyName"))) {
-            alert("Nome da empresa inválido");
-            return;
-        }
-        if (!regex(cnpj, formData.get("cnpj"))) {
-            alert("CNPJ inválido");
-            return;
-        }
-        if (!regex(email, formData.get("email"))) {
-            alert("Email inválido");
-            return;
-        }
-        if (!regex(cep, formData.get("cep"))) {
-            alert("CEP inválido");
-            return;
-        }
-        localStorage.setItem("empresas", JSON.stringify(empresas));
-        console.log("Empresa salva:", empresa);
-    });
+    form === null || form === void 0 ? void 0 : form.addEventListener("submit", handleCompanyFormSubmit);
 }
