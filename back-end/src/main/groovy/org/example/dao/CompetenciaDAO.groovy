@@ -10,7 +10,7 @@ import java.sql.ResultSet
 import java.sql.SQLException
 
 class CompetenciaDAO implements ICrud<Competencia> {
-    private Connection connection
+    private final Connection connection
 
     CompetenciaDAO(Connection connection) {
         this.connection = connection

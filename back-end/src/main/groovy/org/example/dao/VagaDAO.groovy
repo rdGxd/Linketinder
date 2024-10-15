@@ -10,7 +10,7 @@ import java.sql.ResultSet
 import java.sql.SQLException
 
 class VagaDAO implements ICrud<Vaga> {
-    private Connection connection
+    private final Connection connection
 
     VagaDAO(Connection connection) {
         this.connection = connection

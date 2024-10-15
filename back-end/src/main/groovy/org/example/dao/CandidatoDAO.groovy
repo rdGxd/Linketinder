@@ -10,7 +10,7 @@ import java.sql.ResultSet
 import java.sql.SQLException
 
 class CandidatoDAO implements ICrud<Candidato> {
-    private Connection connection
+    private final Connection connection
 
     CandidatoDAO(Connection connection) {
         this.connection = connection
