@@ -7,7 +7,7 @@ class ConnectionFactory {
 
     private static IDBConnectionInterface connectionInstance
 
-    static IDBConnectionInterface getConnectionInstance() {
+    static IDBConnectionInterface getConnectionInstancePostgres() {
         if (connectionInstance == null) {
             connectionInstance = new Postgres()
         }

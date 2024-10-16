@@ -17,7 +17,7 @@ import java.sql.Connection
 class ViewOptions {
 
     private final Scanner scanner = new Scanner(System.in)
-    private final Connection connection = ConnectionFactory.getConnectionInstance().conectar()
+    private final Connection connection = ConnectionFactory.getConnectionInstancePostgres().conectar()
     CandidatosController candidatosController = new CandidatosController(new CandidatoDAO(connection))
     EmpresasController empresasController = new EmpresasController(new EmpresaDAO(connection))
     VagaController vagaController = new VagaController(new VagaDAO(connection))
@@ -193,7 +193,7 @@ class ViewOptions {
     }
 
     void closeConnection() {
-        ConnectionFactory.getConnectionInstance().desconectar(connection)
+        ConnectionFactory.getConnectionInstancePostgres().desconectar(connection)
     }
 
 }
