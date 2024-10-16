@@ -2,7 +2,6 @@ import { validators } from "../utils/validators.js";
 
 type FormFields = 'name' | 'email' | 'skills' | 'cpf' | 'telefone' | 'linkedin' | 'education';
 
-
 export function handleFormSubmit(event: Event) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;

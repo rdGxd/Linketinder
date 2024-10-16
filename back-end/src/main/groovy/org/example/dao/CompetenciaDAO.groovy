@@ -1,6 +1,6 @@
 package org.example.dao
 
-import org.example.mapper.CompetenciaMapper
+import org.example.mapper.CompetenciaPreparedStatement
 import org.example.model.Competencia
 import org.example.repository.ICrud
 
@@ -39,7 +39,9 @@ class CompetenciaDAO implements ICrud<Competencia> {
     void inserir(Competencia competencia) {
         String sql = "INSERT INTO competencias (nome_competencia) VALUES (?)"
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            CompetenciaMapper.setEntityOnDb(competencia, stmt)
+            CompetenciaPreparedStatement.setEntityOnDb(competencia, stmt)
+            stmt.executeUpdate()
+
         } catch (SQLException e) {
             e.printStackTrace()
         }
@@ -50,7 +52,8 @@ class CompetenciaDAO implements ICrud<Competencia> {
         String sql = "UPDATE competencias SET nome_competencia = ? WHERE id = ?"
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(2, id)
-            CompetenciaMapper.setEntityOnDb(competencia, stmt)
+            CompetenciaPreparedStatement.setEntityOnDb(competencia, stmt)
+            stmt.executeUpdate()
         } catch (SQLException e) {
             e.printStackTrace()
         }

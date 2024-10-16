@@ -5,7 +5,7 @@ import org.example.model.Candidato
 import java.sql.PreparedStatement
 import java.sql.SQLException
 
-class CandidatoMapper {
+class CandidatoPreparedStatement {
     static void setEntityOnDb(Candidato candidato, PreparedStatement stmt) throws SQLException {
         stmt.setString(1, candidato.nome)
         stmt.setString(2, candidato.sobrenome)
@@ -16,6 +16,5 @@ class CandidatoMapper {
         stmt.setString(7, candidato.cep)
         stmt.setString(8, candidato.descricaoPessoal)
         stmt.setString(9, candidato.senha)
-        stmt.executeUpdate()
     }
 }

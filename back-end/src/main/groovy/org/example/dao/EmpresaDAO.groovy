@@ -1,6 +1,6 @@
 package org.example.dao
 
-import org.example.mapper.EmpresaMapper
+import org.example.mapper.EmpresaPreparedStatement
 import org.example.model.Empresa
 import org.example.repository.ICrud
 
@@ -47,7 +47,8 @@ class EmpresaDAO implements ICrud<Empresa> {
             VALUES (?, ?, ?, ?, ?, ?, ?)
         """
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            EmpresaMapper.setEntityOnDb(empresa, stmt)
+            EmpresaPreparedStatement.setEntityOnDb(empresa, stmt)
+            stmt.executeUpdate()
         } catch (SQLException e) {
             e.printStackTrace()
         }
@@ -61,7 +62,8 @@ class EmpresaDAO implements ICrud<Empresa> {
         """
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(8, id)
-            EmpresaMapper.setEntityOnDb(empresa, stmt)
+            EmpresaPreparedStatement.setEntityOnDb(empresa, stmt)
+            stmt.executeUpdate()
         } catch (SQLException e) {
             e.printStackTrace()
         }

@@ -1,6 +1,6 @@
 package org.example.dao
 
-import org.example.mapper.VagaMapper
+import org.example.mapper.VagaPreparedStatement
 import org.example.model.Vaga
 import org.example.repository.ICrud
 
@@ -44,7 +44,9 @@ class VagaDAO implements ICrud<Vaga> {
             VALUES (?, ?, ?, ?)
         """
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            VagaMapper.setEntityOnDb(vaga, stmt)
+            VagaPreparedStatement.setEntityOnDb(vaga, stmt)
+            stmt.executeUpdate()
+
         } catch (SQLException e) {
             e.printStackTrace()
         }
@@ -60,7 +62,8 @@ class VagaDAO implements ICrud<Vaga> {
         """
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(5, id)
-            VagaMapper.setEntityOnDb(vaga, stmt)
+            VagaPreparedStatement.setEntityOnDb(vaga, stmt)
+            stmt.executeUpdate()
         } catch (SQLException e) {
             e.printStackTrace()
         }

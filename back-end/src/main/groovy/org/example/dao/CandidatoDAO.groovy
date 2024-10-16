@@ -1,6 +1,6 @@
 package org.example.dao
 
-import org.example.mapper.CandidatoMapper
+import org.example.mapper.CandidatoPreparedStatement
 import org.example.model.Candidato
 import org.example.repository.ICrud
 
@@ -49,7 +49,8 @@ class CandidatoDAO implements ICrud<Candidato> {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         '''
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            CandidatoMapper.setEntityOnDb(candidato, stmt)
+            CandidatoPreparedStatement.setEntityOnDb(candidato, stmt)
+            stmt.executeUpdate()
         } catch (SQLException e) {
             e.printStackTrace()
         }
@@ -63,7 +64,8 @@ class CandidatoDAO implements ICrud<Candidato> {
         '''
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(10, id)
-            CandidatoMapper.setEntityOnDb(candidato, stmt)
+            CandidatoPreparedStatement.setEntityOnDb(candidato, stmt)
+            stmt.executeUpdate()
         } catch (SQLException e) {
             e.printStackTrace()
         }
