@@ -1,4 +1,4 @@
-import {handleCompanyFormSubmit} from "./companyFormHandler.js";
+import {handleCompanyFormSubmit} from "./companyFormHandler";
 
 export function renderCompanyForm(container: HTMLElement | null) {
   if (!container) return;

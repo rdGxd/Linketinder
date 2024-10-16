@@ -1,4 +1,4 @@
-import { validators } from "../utils/validators.js";
+import { validators } from "../../utils/validators";
 
 type FormFields = 'name' | 'email' | 'skills' | 'cpf' | 'telefone' | 'linkedin' | 'education';
 

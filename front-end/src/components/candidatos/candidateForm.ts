@@ -1,4 +1,4 @@
-import {handleFormSubmit} from "./candidateFormHandler.js";
+import {handleFormSubmit} from "./candidateFormHandler";
 
 type FormFields = 'name' | 'email' | 'skills' | 'cpf' | 'telefone' | 'linkedin' | 'education';
 

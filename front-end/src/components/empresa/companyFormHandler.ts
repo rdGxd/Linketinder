@@ -1,4 +1,4 @@
-import { validators } from "../utils/validators.js";
+import { validators } from "../../utils/validators";
 
 export function handleCompanyFormSubmit(event: Event) {
     event.preventDefault();

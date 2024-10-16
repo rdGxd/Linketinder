@@ -1,5 +1,5 @@
-import { renderCandidateList } from "../components/candidateList.js";
-import { renderCompanyForm } from "../components/companyForm.js";
+import { renderCandidateList } from "../components/candidatos/candidateList";
+import { renderCompanyForm } from "../components/empresa/companyForm";
 
 export function renderCompanyProfile(container: HTMLElement | null) {
   if (!container) return;
