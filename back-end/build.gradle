@@ -1,6 +1,9 @@
 plugins {
     id 'application'
     id 'groovy'
+    id 'war'
+    id 'java'
+    id 'com.bmuschko.tomcat' version '2.5'
 }
 
 group = 'org.example'
@@ -8,6 +11,11 @@ version = '1.0-SNAPSHOT'
 
 application {
     mainClass = 'Main'
+}
+
+tomcat {
+    httpPort = 8080
+    contextPath = '/meuapp'
 }
 
 run {
@@ -25,7 +33,20 @@ dependencies {
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.4'
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.spockframework:spock-core:2.3-groovy-4.0'
+    providedCompile 'org.apache.tomcat:tomcat-catalina:9.0.41'
+    providedCompile 'org.apache.tomcat:tomcat-jasper:9.0.41'
+    providedCompile 'org.apache.tomcat:tomcat-juli:9.0.41'
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+
+// https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api
+    compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api', version: '6.1.0'
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+
+
 }
+
+apply plugin: 'war'
 
 test {
     useJUnitPlatform()

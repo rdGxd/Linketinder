@@ -25,6 +25,8 @@ class Empresa {
         this.senha = params.senha
     }
 
+    Empresa() {}
+
     String toString() {
         return "Empresa( id: $id, nomeEmpresa: $nomeEmpresa, cnpj: $cnpj, emailCorporativo: $emailCorporativo, descricaoEmpresa: $descricaoEmpresa, pais: $pais, cep: $cep, senha: $senha)"
     }
