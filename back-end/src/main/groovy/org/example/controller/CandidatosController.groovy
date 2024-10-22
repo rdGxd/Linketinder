@@ -7,11 +7,13 @@ import org.example.model.Candidato
 import org.example.utils.ConnectionFactory
 
 import javax.servlet.ServletException
+import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import java.sql.Connection
 
+@WebServlet(name = "CandidatosController", urlPatterns = ["/candidatos/*"])
 class CandidatosController  extends HttpServlet {
 
     private final CandidatoDAO candidatoDAO

@@ -6,11 +6,13 @@ import org.example.model.Empresa
 import org.example.utils.ConnectionFactory
 
 import javax.servlet.ServletException
+import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import java.sql.Connection
 
+@WebServlet(name = "EmpresasController", urlPatterns = ["/empresas/*"])
 class EmpresasController  extends HttpServlet {
 
     private final ObjectMapper objectMapper
