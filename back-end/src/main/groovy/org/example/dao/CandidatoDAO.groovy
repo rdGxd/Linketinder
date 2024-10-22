@@ -3,14 +3,16 @@ package org.example.dao
 import org.example.mapper.CandidatoPreparedStatement
 import org.example.model.Candidato
 import org.example.repository.ICrud
+import org.example.utils.ConnectionFactory
 
 import java.sql.Connection
+import java.sql.DriverManager
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 
 class CandidatoDAO implements ICrud<Candidato> {
-    private final Connection connection
+    private  Connection connection
 
     CandidatoDAO(Connection connection) {
         this.connection = connection
@@ -48,6 +50,7 @@ class CandidatoDAO implements ICrud<Candidato> {
             INSERT INTO candidatos (nome, sobrenome, data_nascimento, email, cpf, pais, cep, descricao_pessoal, senha)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         '''
+
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             CandidatoPreparedStatement.setEntityOnDb(candidato, stmt)
             stmt.executeUpdate()

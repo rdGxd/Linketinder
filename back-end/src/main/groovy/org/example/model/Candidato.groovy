@@ -30,6 +30,8 @@ class Candidato {
         this.senha = params.senha
     }
 
+    Candidato() {}
+
     String toString() {
         return "Candidato(id: $id, nome: $nome, sobrenome: $sobrenome, dataNascimento: $dataNascimento, email: $email, cpf: $cpf, pais: $pais, cep: $cep, descricaoPessoal: $descricaoPessoal, senha: $senha)"
     }
