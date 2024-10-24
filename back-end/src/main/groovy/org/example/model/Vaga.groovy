@@ -19,6 +19,8 @@ class Vaga {
         this.local = params.local
     }
 
+    Vaga() {}
+
     String toString() {
         return "Vaga(id: $id, idEmpresa: $idEmpresa, nomeVaga: $nomeVaga, descricaoVaga: $descricaoVaga, local: $local)"
     }
