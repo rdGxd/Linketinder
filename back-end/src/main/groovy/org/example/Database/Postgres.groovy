@@ -4,11 +4,13 @@ import org.example.repository.IDBConnectionInterface
 
 import java.sql.Connection
 import java.sql.DriverManager
+import java.sql.SQLException
 
 class Postgres implements IDBConnectionInterface {
 
     @Override
-    Connection conectar() {
+    Connection conectar() throws SQLException, ClassNotFoundException  {
+        Class.forName("org.postgresql.Driver")
         Properties props = new Properties()
         props.setProperty("user", "postgres")
         props.setProperty("password", "admin")

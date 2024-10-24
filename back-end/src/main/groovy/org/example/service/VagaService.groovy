@@ -9,7 +9,7 @@ class VagaService {
     private final VagaDAO vagaDAO
 
     VagaService() {
-        this.vagaDAO = new VagaDAO(ConnectionFactory.getConnectionInstancePostgresHttp())
+        this.vagaDAO = new VagaDAO(ConnectionFactory.getConnectionInstancePostgres())
     }
 
     VagaService(VagaDAO vagaDAO) {

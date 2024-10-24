@@ -9,7 +9,7 @@ class CompetenciaService {
     private final CompetenciaDAO competenciaDAO
 
     CompetenciaService() {
-        this.competenciaDAO = new CompetenciaDAO(ConnectionFactory.getConnectionInstancePostgresHttp())
+        this.competenciaDAO = new CompetenciaDAO(ConnectionFactory.getConnectionInstancePostgres())
     }
 
     CompetenciaService(CompetenciaDAO competenciaDAO) {

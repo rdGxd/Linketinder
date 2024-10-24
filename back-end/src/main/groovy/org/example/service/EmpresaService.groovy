@@ -9,7 +9,7 @@ class EmpresaService {
     private final EmpresaDAO empresaDAO
 
     EmpresaService() {
-        this.empresaDAO = new EmpresaDAO(ConnectionFactory.getConnectionInstancePostgresHttp())
+        this.empresaDAO = new EmpresaDAO(ConnectionFactory.getConnectionInstancePostgres())
     }
 
     EmpresaService(EmpresaDAO empresaDAO) {

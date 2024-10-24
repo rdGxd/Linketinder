@@ -16,7 +16,7 @@ import java.sql.Connection
 class ViewOptions {
 
     private final Scanner scanner = new Scanner(System.in)
-    private final Connection connection = ConnectionFactory.getConnectionInstancePostgres().conectar()
+    private final Connection connection = ConnectionFactory.getConnectionInstancePostgres()
     CandidatoService candidatoService = new CandidatoService(new CandidatoDAO(connection))
     EmpresaService empresaService = new EmpresaService(new EmpresaDAO(connection))
     VagaService vagaService = new VagaService(new VagaDAO(connection))

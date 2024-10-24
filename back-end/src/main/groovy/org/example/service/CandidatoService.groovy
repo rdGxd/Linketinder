@@ -9,7 +9,7 @@ class CandidatoService {
     private final CandidatoDAO candidatoDAO
 
     CandidatoService() {
-        this.candidatoDAO = new CandidatoDAO(ConnectionFactory.getConnectionInstancePostgresHttp())
+        this.candidatoDAO = new CandidatoDAO(ConnectionFactory.getConnectionInstancePostgres())
     }
 
     CandidatoService(CandidatoDAO candidatoDAO) {
