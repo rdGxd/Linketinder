@@ -20,4 +20,22 @@
         <servlet-name>EmpresasController</servlet-name>
         <url-pattern>/empresas</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>VagasController</servlet-name>
+        <servlet-class>org.example.controller.VagasController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>VagasController</servlet-name>
+        <url-pattern>/vagas</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CompetenciasController</servlet-name>
+        <servlet-class>org.example.controller.CompetenciasController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CompetenciasController</servlet-name>
+        <url-pattern>/competencias</url-pattern>
+    </servlet-mapping>
 </web-app>
