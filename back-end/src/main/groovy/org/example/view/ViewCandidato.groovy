@@ -1,35 +1,35 @@
 package org.example.view
 
-import org.example.controller.CandidatosController
 import org.example.model.Candidato
+import org.example.service.CandidatoService
 import org.example.utils.DataInputHandler
 
 class ViewCandidato {
 
     static DataInputHandler inputHandler = new DataInputHandler()
 
-    static void listarCandidatos(CandidatosController candidatosController) {
+    static void listarCandidatos(CandidatoService candidatosService) {
         println()
         println "Lista de Candidatos:"
-        candidatosController.listar().forEach {
+        candidatosService.listar().forEach {
             println(it)
         }
     }
 
-    static void cadastrarCandidato(CandidatosController candidatosController) {
-        candidatosController.inserir(criarCandidato())
+    static void cadastrarCandidato(CandidatoService candidatosService) {
+        candidatosService.inserir(criarCandidato())
     }
 
-    static void atualizarCandidato(CandidatosController candidatosController) {
+    static void atualizarCandidato(CandidatoService candidatosService) {
         println()
         int id = inputHandler.getInput("Informe o código do candidato que deseja atualizar: ").toInteger()
-        candidatosController.atualizar(criarCandidato(), id)
+        candidatosService.atualizar(criarCandidato(), id)
     }
 
-    static void deletarCandidato(CandidatosController candidatosController) {
+    static void deletarCandidato(CandidatoService candidatosService) {
         println()
         int id = inputHandler.getInput("Informe o código do candidato que deseja deletar: ").toInteger()
-        candidatosController.deletar(id)
+        candidatosService.deletar(id)
     }
 
     static Candidato criarCandidato() {

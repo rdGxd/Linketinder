@@ -1,35 +1,35 @@
 package org.example.view
 
-import org.example.controller.CompetenciasController
 import org.example.model.Competencia
+import org.example.service.CompetenciaService
 import org.example.utils.DataInputHandler
 
 class ViewCompetencia {
 
     static DataInputHandler inputHandler = new DataInputHandler()
 
-    static void listarCompetencias(CompetenciasController competenciasController) {
+    static void listarCompetencias(CompetenciaService competenciaService) {
         println()
         println "Lista de Competencias:"
-        competenciasController.listar().forEach {
+        competenciaService.listar().forEach {
             println(it)
         }
     }
 
-    static void cadastrarCompetencia(CompetenciasController competenciasController) {
-        competenciasController.inserir(criarCompetencia())
+    static void cadastrarCompetencia(CompetenciaService competenciaService) {
+        competenciaService.inserir(criarCompetencia())
     }
 
-    static void atualizarCompetencia(CompetenciasController competenciasController) {
+    static void atualizarCompetencia(CompetenciaService competenciaService) {
         println()
         int id = inputHandler.getInput("Informe o código da competencia que deseja atualizar: ").toInteger()
-        competenciasController.atualizar(criarCompetencia(), id)
+        competenciaService.atualizar(criarCompetencia(), id)
     }
 
-    static void deletarCompetencia(CompetenciasController competenciasController) {
+    static void deletarCompetencia(CompetenciaService competenciaService) {
         println()
         int id = inputHandler.getInput("Informe o código da competencia que deseja deletar: ").toInteger()
-        competenciasController.deletar(id)
+        competenciaService.deletar(id)
     }
 
     static Competencia criarCompetencia() {

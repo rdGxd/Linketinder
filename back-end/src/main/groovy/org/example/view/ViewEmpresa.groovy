@@ -1,35 +1,35 @@
 package org.example.view
 
-import org.example.controller.EmpresasController
 import org.example.model.Empresa
+import org.example.service.EmpresaService
 import org.example.utils.DataInputHandler
 
 class ViewEmpresa {
 
     static DataInputHandler inputHandler = new DataInputHandler()
 
-    static void listarEmpresas(EmpresasController empresasController) {
+    static void listarEmpresas(EmpresaService empresaService) {
         println()
         println "Lista de Empresas:"
-        empresasController.listar().forEach {
+        empresaService.listar().forEach {
             println(it)
         }
     }
 
-    static void cadastrarEmpresa(EmpresasController empresasController) {
-        empresasController.inserir(criarEmpresa())
+    static void cadastrarEmpresa(EmpresaService empresaService) {
+        empresaService.inserir(criarEmpresa())
     }
 
-    static void atualizarEmpresa(EmpresasController empresasController) {
+    static void atualizarEmpresa(EmpresaService empresaService) {
         println()
         int id = inputHandler.getInput("Informe o código da empresa que deseja atualizar: ").toInteger()
-        empresasController.atualizar(criarEmpresa(), id)
+        empresaService.atualizar(criarEmpresa(), id)
     }
 
-    static void deletarEmpresa(EmpresasController empresasController) {
+    static void deletarEmpresa(EmpresaService empresaService) {
         println()
         int id = inputHandler.getInput("Informe o código do empresa que deseja deletar: ").toInteger()
-        empresasController.deletar(id)
+        empresaService.deletar(id)
     }
 
     static Empresa criarEmpresa() {

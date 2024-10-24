@@ -1,32 +1,32 @@
 package org.example.view
 
-import org.example.controller.VagaController
 import org.example.model.Vaga
+import org.example.service.VagaService
 import org.example.utils.DataInputHandler
 
 class ViewVaga {
 
     static DataInputHandler inputHandler = new DataInputHandler()
 
-    static void listarVagas(VagaController vagaController) {
+    static void listarVagas(VagaService vagaService) {
         println "Lista de Vagas:"
-        vagaController.listar().forEach {
+        vagaService.listar().forEach {
             println(it)
         }
     }
 
-    static void cadastrarVaga(VagaController vagaController) {
-        vagaController.inserir(criarVaga())
+    static void cadastrarVaga(VagaService vagaService) {
+        vagaService.inserir(criarVaga())
     }
 
-    static void atualizarVaga(VagaController vagaController) {
+    static void atualizarVaga(VagaService vagaService) {
         int id = inputHandler.getInput("Informe o código da vaga que deseja atualizar: ").toInteger()
-        vagaController.atualizar(criarVaga(), id)
+        vagaService.atualizar(criarVaga(), id)
     }
 
-    static void deletarVaga(VagaController vagaController) {
+    static void deletarVaga(VagaService vagaService) {
         int id = inputHandler.getInput("Informe o código da vaga que deseja deletar: ").toInteger()
-        vagaController.deletar(id)
+        vagaService.deletar(id)
     }
 
     static Vaga criarVaga() {

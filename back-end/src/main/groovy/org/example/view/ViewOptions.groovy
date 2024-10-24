@@ -1,14 +1,13 @@
 package org.example.view
 
-
-import org.example.controller.CandidatosController
-import org.example.controller.CompetenciasController
-import org.example.controller.EmpresasController
-import org.example.controller.VagaController
 import org.example.dao.CandidatoDAO
 import org.example.dao.CompetenciaDAO
 import org.example.dao.EmpresaDAO
 import org.example.dao.VagaDAO
+import org.example.service.CandidatoService
+import org.example.service.CompetenciaService
+import org.example.service.EmpresaService
+import org.example.service.VagaService
 import org.example.utils.ConnectionFactory
 import org.example.utils.OptionInputHandler
 
@@ -18,10 +17,10 @@ class ViewOptions {
 
     private final Scanner scanner = new Scanner(System.in)
     private final Connection connection = ConnectionFactory.getConnectionInstancePostgres().conectar()
-    CandidatosController candidatosController = new CandidatosController(new CandidatoDAO(connection))
-    EmpresasController empresasController = new EmpresasController(new EmpresaDAO(connection))
-    VagaController vagaController = new VagaController(new VagaDAO(connection))
-    CompetenciasController competenciasController = new CompetenciasController(new CompetenciaDAO(connection))
+    CandidatoService candidatoService = new CandidatoService(new CandidatoDAO(connection))
+    EmpresaService empresaService = new EmpresaService(new EmpresaDAO(connection))
+    VagaService vagaService = new VagaService(new VagaDAO(connection))
+    CompetenciaService competenciasService = new CompetenciaService(new CompetenciaDAO(connection))
 
     void showCandidatoOptions() {
         try {
@@ -34,22 +33,22 @@ class ViewOptions {
 
             switch (Integer.parseInt(scanner.nextLine())) {
                 case 1:
-                    ViewCandidato.listarCandidatos(candidatosController)
+                    ViewCandidato.listarCandidatos(candidatoService)
                     println()
                     showCandidatoOptions()
                     break
                 case 2:
-                    ViewCandidato.cadastrarCandidato(candidatosController)
+                    ViewCandidato.cadastrarCandidato(candidatoService)
                     println()
                     showCandidatoOptions()
                     break
                 case 3:
-                    ViewCandidato.atualizarCandidato(candidatosController)
+                    ViewCandidato.atualizarCandidato(candidatoService)
                     println()
                     showCandidatoOptions()
                     break
                 case 4:
-                    ViewCandidato.deletarCandidato(candidatosController)
+                    ViewCandidato.deletarCandidato(candidatoService)
                     println()
                     showCandidatoOptions()
                     break
@@ -76,22 +75,22 @@ class ViewOptions {
 
             switch (Integer.parseInt(scanner.nextLine())) {
                 case 1:
-                    ViewEmpresa.listarEmpresas(empresasController)
+                    ViewEmpresa.listarEmpresas(empresaService)
                     println()
                     showEmpresaOptions()
                     break
                 case 2:
-                    ViewEmpresa.cadastrarEmpresa(empresasController)
+                    ViewEmpresa.cadastrarEmpresa(empresaService)
                     println()
                     showEmpresaOptions()
                     break
                 case 3:
-                    ViewEmpresa.atualizarEmpresa(empresasController)
+                    ViewEmpresa.atualizarEmpresa(empresaService)
                     println()
                     showEmpresaOptions()
                     break
                 case 4:
-                    ViewEmpresa.deletarEmpresa(empresasController)
+                    ViewEmpresa.deletarEmpresa(empresaService)
                     println()
                     showEmpresaOptions()
                     break
@@ -118,22 +117,22 @@ class ViewOptions {
 
             switch (Integer.parseInt(scanner.nextLine())) {
                 case 1:
-                    ViewVaga.listarVagas(vagaController)
+                    ViewVaga.listarVagas(vagaService)
                     println()
                     showVagaOptions()
                     break
                 case 2:
-                    ViewVaga.cadastrarVaga(vagaController)
+                    ViewVaga.cadastrarVaga(vagaService)
                     println()
                     showVagaOptions()
                     break
                 case 3:
-                    ViewVaga.atualizarVaga(vagaController)
+                    ViewVaga.atualizarVaga(vagaService)
                     println()
                     showVagaOptions()
                     break
                 case 4:
-                    ViewVaga.deletarVaga(vagaController)
+                    ViewVaga.deletarVaga(vagaService)
                     println()
                     showVagaOptions()
                     break
@@ -160,22 +159,22 @@ class ViewOptions {
 
             switch (Integer.parseInt(scanner.nextLine())) {
                 case 1:
-                    ViewCompetencia.listarCompetencias(competenciasController)
+                    ViewCompetencia.listarCompetencias(competenciasService)
                     println()
                     showCompetenciaOptions()
                     break
                 case 2:
-                    ViewCompetencia.cadastrarCompetencia(competenciasController)
+                    ViewCompetencia.cadastrarCompetencia(competenciasService)
                     println()
                     showCompetenciaOptions()
                     break
                 case 3:
-                    ViewCompetencia.atualizarCompetencia(competenciasController)
+                    ViewCompetencia.atualizarCompetencia(competenciasService)
                     println()
                     showCompetenciaOptions()
                     break
                 case 4:
-                    ViewCompetencia.deletarCompetencia(competenciasController)
+                    ViewCompetencia.deletarCompetencia(competenciasService)
                     println()
                     showCompetenciaOptions()
                     break
