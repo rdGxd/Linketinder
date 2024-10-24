@@ -1,45 +1,36 @@
 package org.example.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.example.dao.EmpresaDAO
+import org.example.service.EmpresaService
 import org.example.model.Empresa
-import org.example.utils.ConnectionFactory
 
 import javax.servlet.ServletException
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import java.sql.Connection
+import java.io.IOException
 
 @WebServlet(name = "EmpresasController", urlPatterns = ["/empresas/*"])
-class EmpresasController  extends HttpServlet {
+class EmpresasController extends HttpServlet {
 
+    private final EmpresaService empresaService
     private final ObjectMapper objectMapper
-    private final EmpresaDAO empresaDAO
-    private final Connection connection = ConnectionFactory.getConnectionInstancePostgresHttp()
-
 
     EmpresasController() {
         this.objectMapper = new ObjectMapper()
-        this.empresaDAO = new EmpresaDAO(connection)
+        this.empresaService = new EmpresaService()
     }
 
-    EmpresasController(EmpresaDAO empresaDAO) {
-        this.empresaDAO = empresaDAO
+    EmpresasController(EmpresaService empresaService) {
+        this.empresaService = empresaService
+        this.objectMapper = new ObjectMapper()
     }
 
-    List<Empresa> listar() { return empresaDAO.listar() }
-
-    void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Empresa empresa = objectMapper.readValue(req.getReader(), Empresa.class)
-        empresaDAO.inserir(empresa)
+        empresaService.inserir(empresa)
         resp.setStatus(HttpServletResponse.SC_CREATED)
     }
-
-    void inserir(Empresa newEmpresa) { empresaDAO.inserir(newEmpresa) }
-
-    void atualizar(Empresa newEmpresa, int id) { empresaDAO.atualizar(newEmpresa, id) }
-
-    void deletar(int id) { empresaDAO.deletar(id) }
 }
