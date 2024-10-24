@@ -38,10 +38,12 @@ dependencies {
     providedCompile 'org.apache.tomcat:tomcat-juli:9.0.41'
     implementation 'javax.servlet:javax.servlet-api:4.0.1'
 
-// https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api
+    // https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api
     compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api', version: '6.1.0'
 
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+    // https://mvnrepository.com/artifact/org.apache.groovy/groovy-json
+    implementation group: 'org.apache.groovy', name: 'groovy-json', version: '4.0.23'
+
 }
 
 apply plugin: 'war'

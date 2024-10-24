@@ -1,6 +1,6 @@
 package org.example.controller
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import groovy.json.JsonSlurper
 import org.example.model.Competencia
 import org.example.service.CompetenciaService
 
@@ -14,21 +14,23 @@ import javax.servlet.http.HttpServletResponse
 class CompetenciasController extends HttpServlet {
 
     private final CompetenciaService competenciaService
-    private final ObjectMapper objectMapper
+    private final JsonSlurper slurper
 
     CompetenciasController() {
-        this.objectMapper = new ObjectMapper()
         this.competenciaService = new CompetenciaService()
+        this.slurper = new JsonSlurper()
+
     }
 
     CompetenciasController(CompetenciaService competenciaService) {
         this.competenciaService = competenciaService
-        this.objectMapper = new ObjectMapper()
+        this.slurper = new JsonSlurper()
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Competencia competencia = objectMapper.readValue(req.getReader(), Competencia.class)
+        def competenciaMapper = this.slurper.parse(req.getReader()) as Map
+        Competencia competencia = new Competencia(competenciaMapper)
         competenciaService.inserir(competencia)
         resp.setStatus(HttpServletResponse.SC_CREATED)
     }

@@ -1,6 +1,6 @@
 package org.example.controller
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import groovy.json.JsonSlurper
 import org.example.service.EmpresaService
 import org.example.model.Empresa
 
@@ -9,27 +9,27 @@ import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import java.io.IOException
 
 @WebServlet(name = "EmpresasController", urlPatterns = ["/empresas/*"])
 class EmpresasController extends HttpServlet {
 
     private final EmpresaService empresaService
-    private final ObjectMapper objectMapper
+    private final JsonSlurper slurper
 
     EmpresasController() {
-        this.objectMapper = new ObjectMapper()
         this.empresaService = new EmpresaService()
+        this.slurper = new JsonSlurper()
     }
 
     EmpresasController(EmpresaService empresaService) {
         this.empresaService = empresaService
-        this.objectMapper = new ObjectMapper()
+        this.slurper = new JsonSlurper()
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Empresa empresa = objectMapper.readValue(req.getReader(), Empresa.class)
+        def empresaMapper = this.slurper.parse(req.getReader()) as Map
+        Empresa empresa = new Empresa(empresaMapper)
         empresaService.inserir(empresa)
         resp.setStatus(HttpServletResponse.SC_CREATED)
     }
