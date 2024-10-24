@@ -1,31 +1,36 @@
 package org.example.controller
 
-
-import org.example.dao.CompetenciaDAO
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.example.model.Competencia
+import org.example.service.CompetenciaService
 
-class CompetenciasController {
+import javax.servlet.ServletException
+import javax.servlet.annotation.WebServlet
+import javax.servlet.http.HttpServlet
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
+@WebServlet(name = "CompetenciasController", urlPatterns = ["/competencias/*"])
+class CompetenciasController extends HttpServlet {
 
-    private final CompetenciaDAO competenciaDAO
+    private final CompetenciaService competenciaService
+    private final ObjectMapper objectMapper
 
-    CompetenciasController(CompetenciaDAO competenciaDAO) {
-        this.competenciaDAO = competenciaDAO
+    CompetenciasController() {
+        this.objectMapper = new ObjectMapper()
+        this.competenciaService = new CompetenciaService()
     }
 
-    List<Competencia> listar() {
-        return competenciaDAO.listar()
+    CompetenciasController(CompetenciaService competenciaService) {
+        this.competenciaService = competenciaService
+        this.objectMapper = new ObjectMapper()
     }
 
-    void inserir(Competencia newVaga) {
-        competenciaDAO.inserir(newVaga)
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Competencia competencia = objectMapper.readValue(req.getReader(), Competencia.class)
+        competenciaService.inserir(competencia)
+        resp.setStatus(HttpServletResponse.SC_CREATED)
     }
 
-    void atualizar(Competencia newVaga, int idCompetencia) {
-        competenciaDAO.atualizar(newVaga, idCompetencia)
-    }
-
-    void deletar(int id) {
-        competenciaDAO.deletar(id)
-    }
 }

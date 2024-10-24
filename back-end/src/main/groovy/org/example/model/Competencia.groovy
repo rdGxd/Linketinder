@@ -13,6 +13,8 @@ class Competencia {
         this.nomeCompetencia = params.nomeCompetencia
     }
 
+    Competencia() {}
+
     String toString() {
         return "Competencia(id: $id, nomeCompetencia: $nomeCompetencia)"
     }
